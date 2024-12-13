@@ -5,18 +5,19 @@ def calcular_media(lista):
         suma += elemento
     return suma / len(lista)
 
-# Función para calcular la mediana
+# Función para calcular la mediana sin modificar la lista original
 def calcular_mediana(lista):
-    n = len(lista)
+    lista_ordenada = lista[:]  # Crear una copia de la lista original
+    n = len(lista_ordenada)
     for i in range(n):  # Ordenar la lista manualmente (burbuja)
         for j in range(0, n - i - 1):
-            if lista[j] > lista[j + 1]:
-                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+            if lista_ordenada[j] > lista_ordenada[j + 1]:
+                lista_ordenada[j], lista_ordenada[j + 1] = lista_ordenada[j + 1], lista_ordenada[j]
     mitad = n // 2
     if n % 2 == 0:  # Si el número de elementos es par
-        return (lista[mitad - 1] + lista[mitad]) / 2
+        return (lista_ordenada[mitad - 1] + lista_ordenada[mitad]) / 2
     else:  # Si el número de elementos es impar
-        return lista[mitad]
+        return lista_ordenada[mitad]
 
 # Función para calcular la moda
 def calcular_moda(lista):
@@ -61,21 +62,22 @@ def calcular_absoluta_media(lista):
 
 # Función para calcular el rango intercuartil (IQR)
 def calcular_rango_intercuartil(lista):
-    n = len(lista)
+    lista_ordenada = lista[:]  # Crear una copia de la lista original
+    n = len(lista_ordenada)
     for i in range(n):  # Ordenar la lista manualmente (burbuja)
         for j in range(0, n - i - 1):
-            if lista[j] > lista[j + 1]:
-                lista[j], lista[j + 1] = lista[j + 1], lista[j]
+            if lista_ordenada[j] > lista_ordenada[j + 1]:
+                lista_ordenada[j], lista_ordenada[j + 1] = lista_ordenada[j + 1], lista_ordenada[j]
     mitad = n // 2
     if n % 2 == 0:
-        q1 = calcular_mediana(lista[:mitad])
-        q3 = calcular_mediana(lista[mitad:])
+        q1 = calcular_mediana(lista_ordenada[:mitad])
+        q3 = calcular_mediana(lista_ordenada[mitad:])
     else:
-        q1 = calcular_mediana(lista[:mitad])
-        q3 = calcular_mediana(lista[mitad + 1:])
+        q1 = calcular_mediana(lista_ordenada[:mitad])
+        q3 = calcular_mediana(lista_ordenada[mitad + 1:])
     return q3 - q1
 
-# Función para calcular el MAD
+# Función para calcular el MAD (Median Absolute Deviation)
 def calcular_mad(lista):
     mediana = calcular_mediana(lista)
     desviaciones_absolutas = [abs(elemento - mediana) for elemento in lista]
