@@ -74,3 +74,9 @@ def calcular_rango_intercuartil(lista):
         q1 = calcular_mediana(lista[:mitad])
         q3 = calcular_mediana(lista[mitad + 1:])
     return q3 - q1
+
+# Función para calcular el MAD
+def calcular_mad(lista):
+    mediana = calcular_mediana(lista)
+    desviaciones_absolutas = [abs(elemento - mediana) for elemento in lista]
+    return calcular_mediana(desviaciones_absolutas)
